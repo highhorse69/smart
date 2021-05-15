@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt-nodejs');
-const cors = require('cors');
+//const cors = require('cors');
 const knex = require('knex');
 
 const register = require('./controllers/register');
@@ -13,7 +13,7 @@ const db = knex({
   // connect to your own database here
   client: 'pg',
   connection: {
-    host : '127.0.0.1',
+    host : 'postgresql-colorful-17281',
     user : 'mac',
     password : '',
     database : 'qwerty'
