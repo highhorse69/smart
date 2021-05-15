@@ -7,10 +7,6 @@ const knex = require('knex');
 const register = require('./controllers/register');
 const signin = require('./controllers/signin');
 const profile = require('./controllers/profile');
-var corsOptions = {
-    origin: 'http://localhost:8080',
-    optionsSuccessStatus: 200 // For legacy browser support
-}
 
 const db=knex({
     //connect database
@@ -27,20 +23,14 @@ const db=knex({
 
 const app = express();
 
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", '*');
-    res.header("Access-Control-Allow-Credentials", true);
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-    res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
-    next();
-});
+app.use(cors());
 app.use(bodyParser.json());
 
-app.get('/', (req, res)=> { res.send('it is working!') })
+app.get('/',cors(), (req, res)=> { res.send('it is working!') })
 app.post('/signin', signin.handleSignin(db, bcrypt))
 app.post('/register', (req, res) => { register.handleRegister(req, res, db, bcrypt) })
 app.get('/profile/:id', (req, res) => { profile.handleProfileGet(req, res, db)})
 
-app.listen(process.env.PORT || 8080,()=>{
+app.listen(process.env.PORT || 3000,()=>{
     console.log(`app is running on port ${process.env.PORT}`);
 });
