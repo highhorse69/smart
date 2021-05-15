@@ -8,16 +8,17 @@ const register = require('./controllers/register');
 const signin = require('./controllers/signin');
 const profile = require('./controllers/profile');
 
-
-const db = knex({
-  // connect to your own database here
+const db=knex({
+    //connect database
   client: 'pg',
+
   connection: {
-    host : 'postgresql-colorful-17281',
-    user : 'mac',
-    password : '',
-    database : 'qwerty'
+     connectionString:process.env.DATABASE_URL,
+     ssl: {
+    rejectUnauthorized: false
   }
+
+}
 });
 
 const app = express();
