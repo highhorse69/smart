@@ -7,6 +7,10 @@ const knex = require('knex');
 const register = require('./controllers/register');
 const signin = require('./controllers/signin');
 const profile = require('./controllers/profile');
+var corsOptions = {
+    origin: 'http://localhost:8080',
+    optionsSuccessStatus: 200 // For legacy browser support
+}
 
 const db=knex({
     //connect database
@@ -23,7 +27,7 @@ const db=knex({
 
 const app = express();
 
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 
 app.get('/', (req, res)=> { res.send('it is working!') })
